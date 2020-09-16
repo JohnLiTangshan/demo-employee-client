@@ -2,7 +2,7 @@
 <p *ngIf="errorMessage">{{errorMessage}}</p>
 
 
-<form *ngIf="!errorMessage" #employeeForm="ngForm" (ngSubmit)="onSubmit()">
+<form *ngIf="!errorMessage" #employeeForm="ngForm" (ngSubmit)="onSubmit()" class="edit-employee">
     <mat-form-field appearance="fill">
         <mat-label>Email</mat-label>
         <input matInput [ngModel]="employee.email"  name="email" type="email" disabled>
@@ -11,34 +11,34 @@
     <br/>
     <mat-form-field appearance="fill">
         <mat-label>First Name</mat-label>
-        <input matInput [(ngModel)]="employee.firstName" name="firstName" required>
+        <input matInput [(ngModel)]="employee.firstName" name="firstName" class="first-name" required>
     </mat-form-field>
     <br/>
     <mat-form-field appearance="fill">
         <mat-label>Last Name</mat-label>
-        <input matInput [(ngModel)]="employee.lastName" name="lastName" required>
+        <input matInput [(ngModel)]="employee.lastName" name="lastName" class="last-name" required>
     </mat-form-field>
     <br/>
     <mat-form-field appearance="fill">
         <mat-label>Department</mat-label>
-        <input matInput [(ngModel)]="employee.department" name="department" required>
+        <input matInput [(ngModel)]="employee.department" name="department" class="department" required>
     </mat-form-field>
     <br/>
     <mat-form-field appearance="fill">
         <mat-label>Phone</mat-label>
-        <input matInput [(ngModel)]="employee.phone" name="phone" required>
+        <input matInput [(ngModel)]="employee.phone" name="phone" required class="phone">
     </mat-form-field>
     <br/>
     <mat-form-field appearance="fill">
         <mat-label>Title</mat-label>
-        <input matInput [(ngModel)]="employee.title" name="title" required>
+        <input matInput [(ngModel)]="employee.title" name="title" required class="title">
     </mat-form-field>
     <br/>
     <mat-form-field appearance="fill">
         <mat-label>Location</mat-label>
-        <input matInput [(ngModel)]="employee.location" name="location" required>
+        <input matInput [(ngModel)]="employee.location" name="location" required class="location">
     </mat-form-field>
     <br/>
-    <button mat-raised-button color="primary" type="submit" [disabled]="!employeeForm.form.valid">Update</button>
-    <button class="cancel" mat-raised-button routerLink="/">Cancel</button>
+    <button mat-raised-button color="primary" type="submit" [disabled]="!employeeForm.form.valid" class="update">Update</button>
+    <button class="cancel" mat-raised-button routerLink="/" class="cancel">Cancel</button>
 </form>
