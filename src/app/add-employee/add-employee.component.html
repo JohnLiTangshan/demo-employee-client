@@ -1,0 +1,41 @@
+
+<form #employeeForm="ngForm" (ngSubmit)="onSubmit()">
+    <mat-form-field appearance="fill">
+        <mat-label>Email</mat-label>
+        <input matInput [(ngModel)]="employee.email" #emailInput="ngModel" name="email" type="email" required pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$">
+        <mat-error *ngIf="emailInput.errors && emailInput.errors.pattern">Please provide a valid email</mat-error>
+    </mat-form-field>
+    <br/>
+    <mat-form-field appearance="fill">
+        <mat-label>First Name</mat-label>
+        <input matInput [(ngModel)]="employee.firstName" name="firstName" required>
+    </mat-form-field>
+    <br/>
+    <mat-form-field appearance="fill">
+        <mat-label>Last Name</mat-label>
+        <input matInput [(ngModel)]="employee.lastName" name="lastName" required>
+    </mat-form-field>
+    <br/>
+    <mat-form-field appearance="fill">
+        <mat-label>Department</mat-label>
+        <input matInput [(ngModel)]="employee.department" name="department" required>
+    </mat-form-field>
+    <br/>
+    <mat-form-field appearance="fill">
+        <mat-label>Phone</mat-label>
+        <input matInput [(ngModel)]="employee.phone" name="phone" required>
+    </mat-form-field>
+    <br/>
+    <mat-form-field appearance="fill">
+        <mat-label>Title</mat-label>
+        <input matInput [(ngModel)]="employee.title" name="title" required>
+    </mat-form-field>
+    <br/>
+    <mat-form-field appearance="fill">
+        <mat-label>Location</mat-label>
+        <input matInput [(ngModel)]="employee.location" name="location" required>
+    </mat-form-field>
+    <br/>
+    <button mat-raised-button color="primary" type="submit" [disabled]="!employeeForm.form.valid">Add</button>
+    <button class="cancel" mat-raised-button routerLink="/">Cancel</button>
+</form>
