@@ -21,7 +21,7 @@ export class PipelineStack extends Stack {
         actionName: 'GitHub',
         output: sourceArtifact,
         oauthToken: SecretValue.secretsManager('githubToken'),
-        trigger: codepipeline_actions.GitHubTrigger.POLL,
+        trigger: codepipeline_actions.GitHubTrigger.WEBHOOK,
         owner: OWNER,
         repo: REPO,
       }),
