@@ -5,6 +5,7 @@
     "aws-cdk:enableDiffNoFail": "true",
     "@aws-cdk/core:newStyleStackSynthesis": "true",
     "repoOwner": "JohnLiTangshan",
-    "repo": "demo-employee-client"
+    "repo": "demo-employee-client",
+    "websiteBucketName": "demo-employee-client-121"
   }
 }

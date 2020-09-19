@@ -1,0 +1,41 @@
+{
+  "version": 0.2,
+  "phases": {
+    "install": {
+      "runtime-versions": {
+        "nodejs": 12
+      },
+      "commands": [
+        "cd app",
+        "echo installing dependencies",
+        "npm install",
+        "echo installing aws cli",
+        "pip install awscli --upgrade --user",
+        "echo check version",
+        "aws --version",
+        "echo installing angular cli",
+        "npm i -g @angular/cli"
+      ]
+    },
+    
+    "build": {
+      "commands": [
+        "echo Build started on `date`",
+        "echo Building angular-hello-world",
+        "ng build --prod"
+      ]
+    },
+    "post_build": {
+      "commands": [
+        "echo BUILD COMPLETE running sync with s3",
+        "aws s3 rm s3://$WEBSITE_BUCKET/ --recursive",
+        "aws s3 cp ./dist/demo-employee-client s3://$WEBSITE_BUCKET/ --recursive"
+      ]
+    }
+  },
+  "artifacts": {
+    "files": ["**/*"],
+    "base-directory": "app/dist/demo-employee-client",
+    "discard-paths": "yes"
+  }
+}
