@@ -45,7 +45,7 @@ export class PipelineStack extends Stack {
     });
 
     // Unit Test
-    const unitTestStage = pipeline.addStage('Unit Test');
+    const unitTestStage = pipeline.addStage('UnitTest');
     
     const unitTestProject = new codebuild.PipelineProject(this, 'UnitTestProject', {
       buildSpec: codebuild.BuildSpec.fromSourceFilename('buildspec-unittest.json'),
@@ -64,7 +64,7 @@ export class PipelineStack extends Stack {
     unitTestStage.addActions(unitTestAction);
 
     // E2E Test
-    const e2eTestStage = pipeline.addStage('E2E Test');
+    const e2eTestStage = pipeline.addStage('E2ETest');
     const e2eTestProject = new codebuild.PipelineProject(this, 'E2ETestProject', {
       buildSpec: codebuild.BuildSpec.fromSourceFilename('buildspec-e2etest.json'),
       environment: {
