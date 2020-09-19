@@ -56,7 +56,7 @@ export class PipelineStack extends Stack {
     });
 
     const unitTestAction: CodeBuildAction = new codepipeline_actions.CodeBuildAction({
-      actionName: 'Unit Test',
+      actionName: 'UnitTest',
       input: sourceArtifact,
       project: unitTestProject
     });
@@ -73,7 +73,7 @@ export class PipelineStack extends Stack {
       projectName: 'DemoEmployeeClientE2ETest'
     });
     const e2eTestAction: CodeBuildAction = new codepipeline_actions.CodeBuildAction({
-      actionName: 'E2E Test',
+      actionName: 'E2ETest',
       input: sourceArtifact,
       project: e2eTestProject
     });
