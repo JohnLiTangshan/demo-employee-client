@@ -14,7 +14,7 @@ export class PipelineStack extends Stack {
     const cloudAssemblyArtifact = new codepipeline.Artifact();
 
     const pipeline = new CdkPipeline(this, 'Pipeline', {
-      pipelineName: 'MyAppPipeline',
+      pipelineName: 'DemoEmployeeClientPipeline',
       cloudAssemblyArtifact,
 
       sourceAction: new codepipeline_actions.GitHubSourceAction({
