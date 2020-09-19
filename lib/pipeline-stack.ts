@@ -31,5 +31,6 @@ export class PipelineStack extends Stack {
         buildCommand: 'npm run build',
       })
     });
+    
   }
 }
