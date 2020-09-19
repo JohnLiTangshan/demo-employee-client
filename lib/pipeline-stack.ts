@@ -81,6 +81,8 @@ export class PipelineStack extends Stack {
 
     // Deploy
     const deployStage = pipeline.addStage('Deploy');
+
+
     const deployProject = new codebuild.PipelineProject(this, 'Deploy', {
       buildSpec: codebuild.BuildSpec.fromSourceFilename('buildspec-deploy.json'),
       environment: {
@@ -99,6 +101,7 @@ export class PipelineStack extends Stack {
         WEBSITE_BUCKET: {value: webSiteBucket.bucketName}
       },
     });
+    webSiteBucket.grantReadWrite(deployProject);
     deployStage.addActions(deployAction);
 
 
