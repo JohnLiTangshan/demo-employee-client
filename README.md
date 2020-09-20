@@ -5,6 +5,13 @@ Preview: http://demo-employee-client-121.s3-website-ap-northeast-1.amazonaws.com
 The architecture is Angular as client and it's served by AWS S3 website bucket, backend is AWS API Gateway + Lambda + Dynamodb.
 CICD pipeline is defined by AWS CDK using AWS Code pipeline, AWS Code build to build and test application.
 
+## Test coverage report
+![Test coverage report](images/testcoverage.png)
+
+## Pipeline screenshot
+![Pipeline](images/pipeline1.png)
+![Pipeline](images/pipeline2.png)
+
 ## Local setup
 * Install aws cli and configure aws cli, https://docs.aws.amazon.com/cli/latest/userguide/install-cliv2.html
 * Install aws cdk

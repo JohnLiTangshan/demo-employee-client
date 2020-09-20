@@ -21,7 +21,7 @@
     "build": {
       "commands": [
         "echo Build started on `date`",
-        "echo Building angular-hello-world",
+        "echo Building demo-employee-client",
         "ng build --prod"
       ]
     },
