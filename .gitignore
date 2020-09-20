@@ -1,5 +1,6 @@
 *.js
-!app/**/*.js
+!app/karma.conf.js
+!app/e2e/protractor.conf.js
 !jest.config.js
 *.d.ts
 node_modules
