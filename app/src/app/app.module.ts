@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { AppRoutingModule } from './app-routing/app-routing.module';
+import { HttpClientModule } from '@angular/common/http';
 
 import {MatButtonModule} from '@angular/material/button';
 import {MatDividerModule} from '@angular/material/divider';
@@ -27,6 +28,7 @@ import { EditEmployeeComponent } from './edit-employee/edit-employee.component';
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     FormsModule,
     FlexLayoutModule,
     BrowserAnimationsModule,

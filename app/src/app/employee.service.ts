@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
-import { Employee } from './model/employee';
+import { Employee, GetEmployeesResult, EmployeeResult } from './model/employee';
 import { Observable, of, throwError, Subject } from 'rxjs';
+import { environment } from '../environments/environment';
+import { HttpClient } from '@angular/common/http';
 
 const employees = [{
   email: "john@demo.com",
@@ -28,48 +30,44 @@ const employees = [{
 export class EmployeeService {
 
 
-  constructor() {}
+  constructor(private http: HttpClient) {}
 
 
   /**
    * Get all employees
    */
-  getEmployees(): Observable<Employee[]> {
-    return of(employees);
+  getEmployees(): Observable<GetEmployeesResult> {
+    const baseUrl = environment.apiUrl;
+    return this.http.get<GetEmployeesResult>(baseUrl + '/employees', {
+      responseType: 'json'
+    });
   }
 
   /**
    * Add a new employee
    * @param employee 
    */
-  addEmployee(employee: Employee): Observable<Employee> {
+  addEmployee(employee: Employee): Observable<EmployeeResult> {
 
-    employees.push(employee);
-    return of(employee);
+    const baseUrl = environment.apiUrl;
+    return this.http.post<EmployeeResult>(baseUrl + '/employees', employee);
+    
   }
   /**
    * Get employee by email
    * @return employee: Employee
    */
 
-   getEmployee(email: string): Observable<Employee> {
-
-    const results = employees.filter(e => e.email === email);
-    if(results.length === 0) {
-      return throwError(new Error('No employee found with ' + email));
-    }
-    return of(results[0]);
-
+   getEmployee(email: string): Observable<EmployeeResult> {
+    const baseUrl = environment.apiUrl;
+    return this.http.get<EmployeeResult>(`${baseUrl}/employees/${email}`)
+    
    }
    /**
     * Update employee information
     */
-   updateEmployee(employee: Employee): Observable<Employee> {
-
-    const index = this.getEmployeeIndex(employee.email);
-    employees[index] = employee;
-    return of(employee);
-
+   updateEmployee(employee: Employee): Observable<EmployeeResult> {
+    return this.http.put<EmployeeResult>(`${environment.apiUrl}/employees`, employee);
    }
 
    /**
@@ -88,12 +86,9 @@ export class EmployeeService {
     * Delete a employee by email
     * @param email
     */
-   deleteEmployee(email: string): Observable<Employee> {
-     const index = this.getEmployeeIndex(email);
-     const employee = employees[index];
-     if(index != -1) {
-       employees.splice(index, 1);
-     }
-     return of(employee);
+   deleteEmployee(email: string): Observable<EmployeeResult> {
+
+    return this.http.delete<EmployeeResult>(`${environment.apiUrl}/employees/${email}`)
+     
    }
 }

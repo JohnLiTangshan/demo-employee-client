@@ -12,7 +12,7 @@ import { Employee } from '../model/employee';
 })
 export class DashboardComponent implements OnInit {
 
-  employees: Employee[];
+  employees: Employee[] = [];
   displayedColumns: string[] = ['email', 'firstName', 'lastName', 'department', 'phone', 'title', 'location', 'action'];
 
   constructor(public employeeService: EmployeeService) {
@@ -24,15 +24,22 @@ export class DashboardComponent implements OnInit {
   }
 
   refreshEmployees(): void {
-    this.employeeService.getEmployees().subscribe(employees => {
-      this.employees = [ ...employees];
+    this.employeeService.getEmployees().subscribe(res => {
+      if(res.isSuccess) {
+        this.employees = [ ...res.result];
+      }
     });
   }
 
   delete(email: string): void {
     this.employeeService.deleteEmployee(email).subscribe(e => {
-      this.refreshEmployees();
+      this.employees.splice(this.findIndex(email), 1);
+      this.employees = [...this.employees];
     });
+  }
+
+  findIndex(email: string) {
+    return this.employees.findIndex(e => e.email === email);
   }
 
 }

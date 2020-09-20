@@ -19,8 +19,12 @@ export class EditEmployeeComponent implements OnInit {
   ngOnInit(): void {
     
     const email = this.activatedRoute.snapshot.paramMap.get('email');
-    this.employeeService.getEmployee(email).subscribe(employee => {
-      this.employee = { ...employee }
+    this.employeeService.getEmployee(email).subscribe(res => {
+      if(res.isSuccess) {
+        this.employee = { ...res.result }
+      } else {
+        this.errorMessage = "No employee with Email: " + email;
+      }
     }, err => {
       this.errorMessage = "No employee with Email: " + email;
     })

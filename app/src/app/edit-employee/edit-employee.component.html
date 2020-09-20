@@ -2,7 +2,7 @@
 <p *ngIf="errorMessage">{{errorMessage}}</p>
 
 
-<form *ngIf="!errorMessage" #employeeForm="ngForm" (ngSubmit)="onSubmit()" class="edit-employee">
+<form *ngIf="!errorMessage && employee" #employeeForm="ngForm" (ngSubmit)="onSubmit()" class="edit-employee">
     <mat-form-field appearance="fill">
         <mat-label>Email</mat-label>
         <input matInput [ngModel]="employee.email"  name="email" type="email" disabled>
