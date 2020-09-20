@@ -5,7 +5,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { DashboardComponent } from '../dashboard/dashboard.component';
 import { EmployeeService } from '../employee.service';
 import { Observable, of, throwError } from 'rxjs';
-import { Employee } from '../model/employee';
+import { Employee, EmployeeResult } from '../model/employee';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
@@ -15,15 +15,26 @@ describe('EditEmployeeComponent', () => {
   let fixture: ComponentFixture<EditEmployeeComponent>;
   let location: Location;
   let route: ActivatedRoute;
-  let employeService = {
-    getEmployee: function (email: string): Observable<Employee> {
-      return of(null);
-    },
-    updateEmployee: function(employee: Employee): Observable<Employee> {
-      return of(employee);
-    }
-  };
+  let employeeService;
   beforeEach(async () => {
+
+    employeeService = {
+      getEmployee: function (email: string): Observable<EmployeeResult> {
+        let employee = sampleEmployee();
+        return of({
+          isSuccess: true,
+          result: employee,
+          errorMessage: ''
+        });
+      },
+      updateEmployee: function(employee: Employee): Observable<EmployeeResult> {
+        return of({
+          isSuccess: true,
+          errorMessage: '',
+          result: employee
+        });
+      }
+    };
     await TestBed.configureTestingModule({
       declarations: [ EditEmployeeComponent ],
       imports: [
@@ -36,7 +47,7 @@ describe('EditEmployeeComponent', () => {
       providers: [
         {
           provide: EmployeeService,
-          useValue: employeService
+          useValue: employeeService
         }
       ]
     })
@@ -50,10 +61,7 @@ describe('EditEmployeeComponent', () => {
     route = TestBed.get(ActivatedRoute);
   });
 
-  it('should create', () => {
-    fixture.detectChanges();
-    expect(component).toBeTruthy();
-  });
+
 
   function sampleEmployee(): Employee {
     const employee = new Employee();
@@ -69,10 +77,14 @@ describe('EditEmployeeComponent', () => {
     // GIVEN
     const spyRoute = spyOn(route.snapshot.paramMap, 'get');
     spyRoute.and.returnValue('test@test.com');
-    const spyService = spyOn(employeService, 'getEmployee');
+    const spyService = spyOn(employeeService, 'getEmployee');
     const employee = sampleEmployee();
     // WHEN
-    spyService.and.returnValue(of(employee));
+    spyService.and.returnValue(of({
+      isSuccess: true,
+      result: employee,
+      errorMessage: ''
+    }));
     fixture.detectChanges();
 
     // THEN
@@ -86,11 +98,28 @@ describe('EditEmployeeComponent', () => {
     expect(component.employee.email).toBe(employee.email);
   });
 
+  it('should show error message when get error from service', () => {
+    // GIVEN
+    const spyRoute = spyOn(route.snapshot.paramMap, 'get');
+    spyRoute.and.returnValue('test@test.com');
+    const spyService = spyOn(employeeService, 'getEmployee');
+
+    // WHEN
+    spyService.and.returnValue(of({
+      isSuccess: false,
+      result: null,
+      errorMessage: 'Fail'
+    }));
+    fixture.detectChanges();
+    expect(component.errorMessage).toBe('No employee with Email: test@test.com');
+    expect(component.employee).toBeFalsy();
+  });
+
   it('should show error message when employee service fail to get employee', () => {
     // GIVEN
     const spyRoute = spyOn(route.snapshot.paramMap, 'get');
     spyRoute.and.returnValue('test@test.com');
-    const spyService = spyOn(employeService, 'getEmployee');
+    const spyService = spyOn(employeeService, 'getEmployee');
 
     // WHEN
     spyService.and.returnValue(throwError(new Error('no employee')));
@@ -101,9 +130,13 @@ describe('EditEmployeeComponent', () => {
 
   it('should go to home page after update employee', () => {
     // GIVEN
-    const spyService = spyOn(employeService, 'updateEmployee');
+    const spyService = spyOn(employeeService, 'updateEmployee');
     const employee = sampleEmployee();
-    spyService.and.returnValue(of(employee));
+    spyService.and.returnValue(of({
+      isSuccess: true,
+      result: employee,
+      errorMessage: ''
+    }));
     
     // WHEN
     component.onSubmit();

@@ -3,6 +3,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { EmployeeService } from '../employee.service';
 import { Employee } from '../model/employee';
 
+/**
+ * Edit employee component
+ */
 @Component({
   selector: 'app-edit-employee',
   templateUrl: './edit-employee.component.html',

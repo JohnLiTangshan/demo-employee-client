@@ -4,26 +4,6 @@ import { Observable, of, throwError, Subject } from 'rxjs';
 import { environment } from '../environments/environment';
 import { HttpClient } from '@angular/common/http';
 
-const employees = [{
-  email: "john@demo.com",
-  firstName: 'John',
-  lastName: 'Li',
-  department: 'PI', 
-  phone: '12345', 
-  title: 'Full Stack Engineer', 
-  location: 'Dalian' 
-},
-{
-  email: "victor@demo.com",
-  firstName: 'Victor',
-  lastName: 'Lu',
-  department: 'PI', 
-  phone: '23456', 
-  title: 'Architect', 
-  location: 'Dalian' 
-}
-];
-
 @Injectable({
   providedIn: 'root'
 })
@@ -70,18 +50,6 @@ export class EmployeeService {
     return this.http.put<EmployeeResult>(`${environment.apiUrl}/employees`, employee);
    }
 
-   /**
-    * Find employee index in the employees array with email
-    * @param email 
-    */
-   getEmployeeIndex(email: string): number {
-     for(let i = 0; i < employees.length; i++) {
-       if(employees[i].email === email) {
-         return i;
-       }
-     }
-     return -1;
-   }
    /**
     * Delete a employee by email
     * @param email
