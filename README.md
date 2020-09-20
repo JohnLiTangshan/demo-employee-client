@@ -1,7 +1,11 @@
 # Welcome. This project include an angular application, CICD pipeline created with AWS CDK and deployed to AWS S3 bucket.
 Preview: http://demo-employee-client-121.s3-website-ap-northeast-1.amazonaws.com
 
-# Local setup
+## Application architecture
+The architecture is Angular as client and it's served by AWS S3 website bucket, backend is AWS API Gateway + Lambda + Dynamodb.
+CICD pipeline is defined by AWS CDK using AWS Code pipeline, AWS Code build to build and test application.
+
+## Local setup
 * Install aws cli and configure aws cli, https://docs.aws.amazon.com/cli/latest/userguide/install-cliv2.html
 * Install aws cdk
 ```
@@ -18,9 +22,9 @@ cdk bootstrap     [--profile admin-profile-1]     --cloudformation-execution-pol
     "websiteBucketName": "demo-employee-client-121"
 ```
 * Create a github token in AWS secret manager named githubToken
-# The angular application
+## The angular application
 The angular application source code is in app folder, it includes application code, Unit testing, E2E testing
-# To deploy the application
+## To deploy the application
 * Run below command to create the Pipeline in aws
 ```
     cdk deploy
