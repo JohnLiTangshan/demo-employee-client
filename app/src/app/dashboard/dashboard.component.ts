@@ -13,7 +13,7 @@ import { Employee } from '../model/employee';
 export class DashboardComponent implements OnInit {
 
   employees: Employee[] = [];
-  displayedColumns: string[] = ['email', 'firstName', 'lastName', 'department', 'phone', 'title', 'location', 'action'];
+  displayedColumns: string[] = ['email', 'firstName', 'lastName', 'info', 'action'];
 
   constructor(public employeeService: EmployeeService) {
 
